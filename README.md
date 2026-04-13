@@ -33,7 +33,7 @@
 
 **Решение:**  
 - Предобработка текста: приведение к нижнему регистру, удаление спецсимволов, токенизация, удаление стоп-слов, лемматизация с определением части речи (NLTK).
-- Векторизация: `TfidfVectorizer` (max_features=10000).
+- Векторизация: `TfidfVectorizer` (max_features=5000).
 - Обучение: `LGBMClassifier` с подбором гиперпараметров (`RandomizedSearchCV`).
 - Оценка качества: F1-score.
 
@@ -41,7 +41,7 @@
 `pandas`, `numpy`, `nltk` (tokenize, stopwords, WordNetLemmatizer, pos_tag), `scikit-learn` (TfidfVectorizer, RandomizedSearchCV), `lightgbm.LGBMClassifier`, `tqdm`, `re`
 
 **Результат:**  
-Модель показала **F1-score ≈ 0.75**, что соответствует требованию.
+Модель показала **F1-score ≈ 0.77**, что соответствует требованию.
 
 **Ноутбук:** [`Машинное_обучение_для_текстов.ipynb`](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Машинное_обучение_для_текстов.ipynb)
 
