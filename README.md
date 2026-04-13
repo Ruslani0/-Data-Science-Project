@@ -1,12 +1,69 @@
 # Мои проекты по Data Science и машинному обучению
 
-Репозиторий с учебными проектами. Каждый проект оформлен в виде Jupyter Notebook с полным кодом и выводами.
+Репозиторий с частью моих учебных проектов. Каждый проект решает реальную бизнес-задачу и содержит полный код в Jupyter Notebook.
 
-## Список проектов
+## Проекты
 
-| Название | Описание | Технологии | Ссылка |
-|----------|----------|------------|--------|
-| **Классификация токсичных комментариев** | Бинарная классификация текстов. Предобработка (токенизация, лемматизация, POS-теги), TF-IDF, подбор гиперпараметров, LightGBM. Метрика F1-score ~0.75. | `pandas`, `nltk`, `scikit-learn` (TfidfVectorizer, RandomizedSearchCV), `lightgbm.LGBMClassifier`, `tqdm`, `re` | [Ноутбук](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Машинное_обучение_для_текстов.ipynb) |
-| **Прогноз заказов такси** | Временные ряды: создание лагов, скользящих средних, признаков даты. Модели: RandomForest, DecisionTree, LGBMRegressor. Оценка RMSE. | `pandas`, `matplotlib`, `scikit-learn` (GridSearchCV, TimeSeriesSplit, RandomForestRegressor, ColumnTransformer), `statsmodels` (seasonal_decompose), `lightgbm.LGBMRegressor` | [Ноутбук](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Временные_ряды.ipynb) |
-| **Общий анализ данных и ML. Стальная птица** | Разведочный анализ, визуализация, проверка гипотез, корреляционный анализ (phik), регрессионные модели (CatBoost, RandomForest, LinearRegression). | `pandas`, `seaborn`, `matplotlib`, `scipy.stats`, `phik`, `statsmodels` (VIF), `scikit-learn` (предобработка, метрики, GridSearchCV), `catboost.CatBoostRegressor` | [Ноутбук](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Проект_стальная_птица.ipynb) |
+### 1. Прогноз заказов такси (временные ряды)
+
+**Задача:**  
+Компания «Чётенькое такси» собрала исторические данные о заказах такси в аэропортах. Чтобы привлекать больше водителей в период пиковой нагрузки, нужно спрогнозировать количество заказов такси на следующий час. Требуется построить модель с **RMSE ≤ 48**.
+
+**Решение:**  
+- Создание признаков: лаги (до 24 часов), скользящее среднее, день недели, час, месяц.
+- Разбиение с сохранением порядка (`shuffle=False`).
+- Обучение моделей: RandomForestRegressor, DecisionTreeRegressor, LGBMRegressor.
+- Подбор гиперпараметров через `GridSearchCV` с `TimeSeriesSplit`.
+- Оценка качества: RMSE.
+
+**Технологии:**  
+`pandas`, `matplotlib`, `scikit-learn` (RandomForestRegressor, GridSearchCV, TimeSeriesSplit, ColumnTransformer, OrdinalEncoder, SimpleImputer), `statsmodels` (seasonal_decompose), `lightgbm`
+
+**Результат:**  
+Лучшая модель (RandomForest) достигла **RMSE ≈ 32.5**, что укладывается в требование заказчика.
+
+**Ноутбук:** [`Временные_ряды.ipynb`](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Временные_ряды.ipynb)
+
+---
+
+### 2. Классификация токсичных комментариев (обработка текста)
+
+**Задача:**  
+Интернет-магазин «Викишоп» запускает сервис, где пользователи могут редактировать описания товаров. Нужен инструмент для поиска токсичных комментариев и отправки их на модерацию. Требуется построить модель классификации (токсично / не токсично) с **F1-мерой не менее 0.75**.
+
+**Решение:**  
+- Предобработка текста: приведение к нижнему регистру, удаление спецсимволов, токенизация, удаление стоп-слов, лемматизация с определением части речи (NLTK).
+- Векторизация: `TfidfVectorizer` (max_features=10000).
+- Обучение: `LGBMClassifier` с подбором гиперпараметров (`RandomizedSearchCV`).
+- Оценка качества: F1-score.
+
+**Технологии:**  
+`pandas`, `numpy`, `nltk` (tokenize, stopwords, WordNetLemmatizer, pos_tag), `scikit-learn` (TfidfVectorizer, RandomizedSearchCV), `lightgbm.LGBMClassifier`, `tqdm`, `re`
+
+**Результат:**  
+Модель показала **F1-score ≈ 0.75**, что соответствует требованию.
+
+**Ноутбук:** [`Машинное_обучение_для_текстов.ipynb`](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Машинное_обучение_для_текстов.ipynb)
+
+---
+
+### 3. Контроль температуры сплава (регрессия)
+
+**Задача:**  
+Металлургический комбинат «Стальная птица» хочет уменьшить потребление электроэнергии на этапе обработки стали, для чего необходимо контролировать температуру сплава. Требуется построить модель предсказания температуры для имитации технологического процесса.
+
+**Решение:**  
+- Разведочный анализ данных: визуализация, корреляционный анализ (phik), проверка гипотез.
+- Предобработка: обработка пропусков, кодирование категориальных признаков, масштабирование.
+- Обучение регрессионных моделей: LinearRegression, RandomForestRegressor, CatBoostRegressor, DummyRegressor (baseline).
+- Подбор гиперпараметров через `GridSearchCV` / `RandomizedSearchCV`.
+- Оценка качества: R2, MAE, RMSE.
+
+**Технологии:**  
+`pandas`, `seaborn`, `matplotlib`, `scipy.stats`, `phik`, `statsmodels` (VIF), `scikit-learn` (предобработка, метрики, GridSearchCV, модели), `catboost.CatBoostRegressor`
+
+**Результат:**  
+Лучшая модель (CatBoostRegressor) достигла **R2 = 0.82** на тестовой выборке, что позволяет достаточно точно имитировать технологический процесс.
+
+**Ноутбук:** [`Проект_стальная_птица.ipynb`](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Проект_стальная_птица.ipynb)
 
