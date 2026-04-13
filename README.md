@@ -20,7 +20,7 @@
 `pandas`, `matplotlib`, `scikit-learn` (RandomForestRegressor, GridSearchCV, TimeSeriesSplit, ColumnTransformer, OrdinalEncoder, SimpleImputer), `statsmodels` (seasonal_decompose), `lightgbm`
 
 **Результат:**  
-Лучшая модель (RandomForest) достигла **RMSE ≈ 32.5**, что укладывается в требование заказчика.
+Лучшая модель (RandomForest) достигла **RMSE ≈ 32.4**, что укладывается в требование заказчика.
 
 **Ноутбук:** [`Временные_ряды.ipynb`](https://github.com/Ruslani0/-Data-Science-Project/blob/main/Временные_ряды.ipynb)
 
